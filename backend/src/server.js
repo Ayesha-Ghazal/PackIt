@@ -2,10 +2,14 @@ require("dotenv").config();
 
 const express = require("express");
 const { poolPromise } = require("./config/db");
+const tripRoutes = require("./routes/tripRoutes");
 
 const app = express();
 
 app.use(express.json());
+
+// Routes
+app.use("/api/trips", tripRoutes);
 
 app.get("/", (req, res) => {
     res.json({
