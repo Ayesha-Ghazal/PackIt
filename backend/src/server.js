@@ -7,12 +7,22 @@ const packingRoutes = require("./routes/packingRoutes");
 
 const app = express();
 
+// Middleware
 app.use(express.json());
+
+// Health Check
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "healthy",
+        service: "PackIt Backend"
+    });
+});
 
 // Routes
 app.use("/api/trips", tripRoutes);
 app.use("/api/items", packingRoutes);
 
+// Home route
 app.get("/", (req, res) => {
     res.json({
         message: "Welcome to PackIt API"
