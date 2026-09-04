@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+
+metadata:
+  name: packit-backend
+
+spec:
+  replicas: 2
+
+  selector:
+    matchLabels:
+      app: packit-backend
+
+  template:
+    metadata:
+      labels:
+        app: packit-backend
+
+    spec:
+      containers:
+        - name: packit-backend
+          image: packit-backend:1.0
+          imagePullPolicy: Never
+
+          ports:
+            - containerPort: 5000
+
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
+          envFrom:
+            - secretRef:
+                name: packit-db-secret
